@@ -12,6 +12,12 @@ router.post('/studentReg', studentController.registerStudent);
 // Student login route
 router.post('/studentLog', studentController.isVerified, studentController.loginStudent);
 
+//get user details
+router.get('/profile', studentController.ensureAuthenticated, (req, res) => {
+  // Send user data as JSON
+  res.status(200).json({ user: req.user });
+});
+
 // Email verification route
 router.get("/verify/:userId/:uniqueString", studentController.verifyStudent);
 
