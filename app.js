@@ -13,7 +13,11 @@ const passport = require('passport');
 var indexRouter = require('./routes/index');
 var studentRouter = require('./models/student');
 
-app.use(cors({ origin: "*" }));
+//app.use(cors({ origin: "*" }));
+app.use(cors({
+  origin: 'http://localhost:3000', // Your frontend's domain
+  credentials: true // Allow credentials (cookies) to be sent
+}));
 app.use(express.json());
 
 app.use(expressSession({
