@@ -21,6 +21,10 @@ router.get("/verify/:userId/:uniqueString", studentController.verifyStudent);
 // Render verification page , for this a view page has to be created
 router.get("/verify", studentController.renderVerificationPage);
 
+router.get('/profile', studentController.ensureAuthenticated, (req, res) => {
+  // Send user data as JSON
+  res.status(200).json({ user: req.user });
+});
 
 
 // Firebase routes
