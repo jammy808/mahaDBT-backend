@@ -11,27 +11,30 @@ const localStratergy = require('passport-local');
 passport.use(new localStratergy(studentModel.authenticate()));
 
 
-let transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.AUTH_EMAIL,
-    pass: process.env.AUTH_PASS,
-  }
-});
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Ready for messages");
-    console.log(success);
-  }
-});
 
 // Helper function to send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
   const currentUrl = "https://localhost:8080/";
   const uniqueString = uuidv4() + _id;
+
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.AUTH_EMAIL,
+      pass: process.env.AUTH_PASS,
+    }
+  });
+  
+  transporter.verify((error, success) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Ready for messages");
+      console.log(success);
+    }
+  });
+
 
   const mailOptions = {
     from: process.env.AUTH_EMAIL,

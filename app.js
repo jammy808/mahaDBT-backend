@@ -9,9 +9,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const expressSession = require('express-session');
 const passport = require('passport');
+var admin = require("firebase-admin");
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./router');
 var studentRouter = require('./models/student');
+
+process.env.GOOGLE_APPLICATION_CREDENTIALS;
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  projectId: "flutter-template-noti",
+});
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
@@ -45,7 +52,7 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     app.listen(8080, () =>
-      console.log("connected to database && server is live at port 8080")
+      console.log("Connected")
     );
   })
   .catch((error) => console.log(error));
