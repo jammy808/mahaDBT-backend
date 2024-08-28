@@ -1,19 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const studentController = require('./controllers/authController');
-const firebaseController = require('./controllers/firebaseController');
-const uploadController = require('./controllers/uploadController');
-const upload = require('./middlewares/multer');
+const studentController = require("./controllers/authController");
+const firebaseController = require("./controllers/firebaseController");
+const uploadController = require("./controllers/uploadController");
+const upload = require("./middlewares/multer");
 
-router.get('/', (req, res) => {
-  res.send('Hello');
+router.get("/", (req, res) => {
+  res.send("Hello");
 });
 
 // Student registration route
-router.post('/studentReg', studentController.registerStudent);
+router.post("/studentReg", studentController.registerStudent);
 
 // Student login route
-router.post('/studentLog', studentController.isVerified, studentController.loginStudent);
+router.post(
+  "/studentLog",
+  studentController.isVerified,
+  studentController.loginStudent
+);
 
 // Email verification route
 router.get("/verify/:userId/:uniqueString", studentController.verifyStudent);
@@ -21,13 +25,13 @@ router.get("/verify/:userId/:uniqueString", studentController.verifyStudent);
 // Render verification page , for this a view page has to be created
 router.get("/verify", studentController.renderVerificationPage);
 
-router.get('/profile', studentController.ensureAuthenticated, (req, res) => {
+router.get("/profile", studentController.ensureAuthenticated, (req, res) => {
   // Send user data as JSON
   res.status(200).json({ user: req.user });
 });
 
-
 // Firebase routes
+
 // Sending Notification to Single Device using FCM Token
 router.post(
   "/sendNotificationToSingleDevice",
@@ -57,7 +61,6 @@ router.post(
   "/sendCustomImageNotification/:topic",
   firebaseController.sendCustomImageNotification
 );
-
 
 // Upload Routes
 // Add Single file to Cloudinary
@@ -101,5 +104,12 @@ router.post(
   // AuthHelper.verifyToken,
   uploadController.deleteMultipleFiles
 );
+
+// Atharva's Routes - {Flutter App}
+
+// Student registration route
+router.post("/register", studentController.register);
+router.post("/isUserVerified", studentController.isUserVerified);
+router.post("/login", studentController.login);
 
 module.exports = router;
