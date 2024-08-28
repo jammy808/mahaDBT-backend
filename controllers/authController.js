@@ -1,4 +1,5 @@
 const studentModel = require("../models/student");
+const Scholarship = require("../models/scholarship")
 const studentVerify = require("../models/studentVerify");
 const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
@@ -85,7 +86,7 @@ const sendVerificationEmail = ({ _id, email }, res) => {
     });
 };
 
-// Controller functions
+// Soham's Controllers
 exports.registerStudent = async (req, res, next) => {
   var studentData = new studentModel({
     firstName: req.body.firstName,
@@ -98,7 +99,20 @@ exports.registerStudent = async (req, res, next) => {
   studentModel
     .register(studentData, req.body.password)
     .then((result) => {
-      passport.authenticate("local")(req, res, function () {
+
+      passport.authenticate("local")(req, res, async function () {
+
+        const scholarship = new Scholarship({
+          student: studentData._id,
+          rejected: false,
+          feedback: '',
+        });
+
+        await scholarship.save();
+
+        studentData.scholarship = scholarship._id;
+        await studentData.save();
+
         sendVerificationEmail(result, res);
       });
     })
@@ -125,6 +139,34 @@ exports.loginStudent = (req, res, next) => {
       return res.status(200).json({ message: "Login successful", user: user });
     });
   })(req, res, next);
+};
+
+exports.update = async (req, res, next) => {
+ 
+  const { id , firstName, lastName, birthDate, mobileNo, address} = req.body;
+  console.log(id);
+  try {
+    const student = await studentModel.findByIdAndUpdate(
+      id,
+      { firstName, lastName, birthDate, mobileNo, address},
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Student information updated successfully"});
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.logout = async (req, res, next) => {
+  req.logout(function(err) {
+    if (err) {
+      return res
+        .status(500)
+        .json({ message: "Failed to log out user.", error: err });
+    }
+    return res.status(200).json({ message: "Logout successful"});
+  });
 };
 
 exports.ensureAuthenticated = (req, res, next) => {
@@ -175,13 +217,13 @@ exports.verifyStudent = async (req, res, next) => {
       } else {
         let msg =
           "Account record doesn't exist or has been verified already. Please sign up or log in.";
-        res.send({ msg });
+          res.render("verify", { msg });
       }
     })
     .catch((error) => {
       console.log(error);
       let msg = "An error occurred while checking for the existing record.";
-      res.send({ msg });
+      res.render("verify", { msg });
     });
 };
 
