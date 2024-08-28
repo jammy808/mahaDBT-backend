@@ -20,10 +20,9 @@ admin.initializeApp({
   projectId: "flutter-template-noti",
 });
 
-app.use(cors({ origin: "*" }));
 //app.use(cors({ origin: "*" }));
 app.use(cors({
-  origin: 'http://localhost:3000', // Your frontend's domain
+  origin: 'http://localhost:3000',
   credentials: true // Allow credentials (cookies) to be sent
 }));
 app.use(express.json());
