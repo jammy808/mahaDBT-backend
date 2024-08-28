@@ -19,6 +19,8 @@ router.post(
   studentController.loginStudent
 );
 
+router.get('/logout', studentController.logout);
+
 // Email verification route
 router.get("/verify/:userId/:uniqueString", studentController.verifyStudent);
 
@@ -29,6 +31,9 @@ router.get("/profile", studentController.ensureAuthenticated, (req, res) => {
   // Send user data as JSON
   res.status(200).json({ user: req.user });
 });
+
+//update user details : 1st draft
+router.post("/update", studentController.ensureAuthenticated, studentController.update);
 
 // Firebase routes
 
