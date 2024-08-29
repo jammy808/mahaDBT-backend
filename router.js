@@ -3,11 +3,12 @@ const router = express.Router();
 const studentController = require("./controllers/authController");
 const firebaseController = require("./controllers/firebaseController");
 const uploadController = require("./controllers/uploadController");
+const sagController = require("./controllers/SAG-Admin/sagController");
 const upload = require("./middlewares/multer");
 
-router.get("/", (req, res) => {
-  res.send("Hello");
-});
+// router.get("/", (req, res) => {
+//   res.render("Hello");
+// });
 
 // Student registration route
 router.post("/studentReg", studentController.registerStudent);
@@ -19,7 +20,7 @@ router.post(
   studentController.loginStudent
 );
 
-router.get('/logout', studentController.logout);
+router.get("/logout", studentController.logout);
 
 // Email verification route
 router.get("/verify/:userId/:uniqueString", studentController.verifyStudent);
@@ -33,7 +34,15 @@ router.get("/profile", studentController.ensureAuthenticated, (req, res) => {
 });
 
 //update user details : 1st draft
-router.post("/update", studentController.ensureAuthenticated, studentController.update);
+router.post(
+  "/updateStudentProfile",
+  // studentController.ensureAuthenticated,
+  upload.fields([{ name: "userImage" }, { name: "incomeCertificate" }, { name: "marksheet" }]),
+  studentController.updateStudentProfile
+);
+
+// Apply for scholarship route
+router.post("/applyForScholarship", studentController.applyForScholarship);
 
 // Firebase routes
 
@@ -109,6 +118,14 @@ router.post(
   // AuthHelper.verifyToken,
   uploadController.deleteMultipleFiles
 );
+
+// Atharva's Routes - { SAG Dashboard }
+router.get("/", (req, res) => {
+  res.render("Authorization/signIn");
+});
+router.post("/SAG/login", sagController.loginSAGAdmin);
+router.get("/SAG/home", sagController.home);
+router.get("/SAG/viewAllPendingApplications", sagController.viewAllPendingApplications);
 
 // Atharva's Routes - {Flutter App}
 

@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const { sendFlutterVerificationEmail } = require("../helpers/email");
 const { uploadSingleFileOnCloudinary } = require("../helpers/cloudinary");
+const { ObjectId } = require("mongodb");
 
 require("dotenv").config();
 
@@ -142,22 +143,155 @@ exports.loginStudent = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.update = async (req, res, next) => {
- 
-  const { id , firstName, lastName, birthDate, mobileNo, address} = req.body;
-  console.log(id);
+// exports.updateStudentProfile = async (req, res, next) => {
+//   try {
+//     const studentId = req.body.studentId;
+    
+//     // Upload the files (marksheet, income and userImage)
+//     // Get the Local Path from the server which will be stored by multer defined in the middleware
+//     const userImagePath = req.files?.userImage[0].path;
+//     const incomeCertificate = req.files?.incomeCertificate[0].path;
+//     const marksheet = req.files?.marksheet[0].path;
+
+//     // If there are no images
+//     if (userImagePath == null || incomeCertificate == null || marksheet == null) {
+//       return res.status(200).json({message: "file not found"});
+//     }
+
+//     // Use the local Path to upload the file to Cloudinary
+//     const userImageResult = await uploadSingleFileOnCloudinary(userImagePath);
+//     const incomeCertificateResult = await uploadSingleFileOnCloudinary(incomeCertificate);
+//     const markSheetCertificateResult = await uploadSingleFileOnCloudinary(marksheet);
+
+//     // Make sure if the file has been uploaded to Cloudinary, store the cloudinary URL in the database
+//     if (!userImageResult || !incomeCertificateResult || !markSheetCertificateResult) {
+//       return res.status(200).json({message: "fail"});
+//     }
+
+//     let student = await studentModel.findOneAndUpdate({
+//       _id: new ObjectId(studentId),
+//     }, {
+//       $set: {
+//         "personalDetails": {
+//           "firstName": req.body.firstName,
+//           "middleName": req.body.middleName,
+//           "lastName": req.body.lastName,
+//           "mobileNo": req.body.mobileNo,
+//           "guardianMobileNo": req.body.guardianMobileNo,
+//           "userImage": userImageResult.url,
+//           "birthDate": new Date(req.body.birthDate),
+//           "address": req.body.address,
+//           "gender": req.body.gender,
+//           "age": req.body.age,      
+//         },
+//         "incomeDetails": {
+//           "isIncomeCertificateAvailable": req.body.isIncomeCertificateAvailable,
+//           "annualIncome": req.body.annualIncome,
+//           "incomeCertificateNo": req.body.incomeCertificateNo,
+//           "incomeCertificate": incomeCertificateResult.url,
+//           "issuedDate": new Date(req.body.issuedDate),
+//         },
+//         "educationDetails": {
+//           "marksheet": markSheetCertificateResult.url,
+//           "totalMarks": req.body.totalMarks,
+//           "percentage": req.body.percentage,
+//           "college": req.body.college,
+//           "course": req.body.course,
+//         },
+//         "bankAccountNo": req.body.bankAccountNo,
+//       }
+//     }, {new: true}, {runValidators: true});
+
+//     console.log("Student");
+    
+//     console.log(student);
+    
+
+//     res.status(200).json({ message: "Student information updated successfully"});
+//   } catch (error) {
+
+//     if (error.name === 'ValidationError') {
+//       // Handle validation errors
+//       return res.status(400).json({ message: error.message });
+//     }
+
+//     res.status(400).json({ error: error.message });
+//   }
+// };
+
+exports.updateStudentProfile = async (req, res) => {
   try {
-    const student = await studentModel.findByIdAndUpdate(
-      id,
-      { firstName, lastName, birthDate, mobileNo, address},
-      { new: true }
+    const studentId = req.body.studentId;
+
+    const userImageFile = req.files?.userImage?.[0];
+    const incomeCertificateFile = req.files?.incomeCertificate?.[0];
+    const marksheetFile = req.files?.marksheet?.[0];
+
+    if (!userImageFile || !incomeCertificateFile || !marksheetFile) {
+      return res.status(400).json({ message: "Required files are missing" });
+    }
+
+    const userImagePath = userImageFile.path;
+    const incomeCertificatePath = incomeCertificateFile.path;
+    const marksheetPath = marksheetFile.path;
+
+    const userImageResult = await uploadSingleFileOnCloudinary(userImagePath);
+    const incomeCertificateResult = await uploadSingleFileOnCloudinary(incomeCertificatePath);
+    const markSheetCertificateResult = await uploadSingleFileOnCloudinary(marksheetPath);
+
+    if (!userImageResult || !incomeCertificateResult || !markSheetCertificateResult) {
+      return res.status(500).json({ message: "Failed to upload files" });
+    }
+
+    let student = await studentModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(studentId) },
+      {
+        $set: {
+          "personalDetails.firstName": req.body.firstName,
+          "personalDetails.middleName": req.body.middleName,
+          "personalDetails.lastName": req.body.lastName,
+          "personalDetails.mobileNo": req.body.mobileNo,
+          "personalDetails.guardianMobileNo": req.body.guardianMobileNo,
+          "personalDetails.userImage": userImageResult.url,
+          "personalDetails.birthDate": new Date(req.body.birthDate),
+          "personalDetails.address": req.body.address,
+          "personalDetails.gender": req.body.gender,
+          "personalDetails.age": req.body.age,
+          "incomeDetails.isIncomeCertificateAvailable": req.body.isIncomeCertificateAvailable,
+          "incomeDetails.annualIncome": req.body.annualIncome,
+          "incomeDetails.incomeCertificateNo": req.body.incomeCertificateNo,
+          "incomeDetails.incomeCertificate": incomeCertificateResult.url,
+          "incomeDetails.issuedDate": new Date(req.body.issuedDate),
+          "educationDetails.marksheet": markSheetCertificateResult.url,
+          "educationDetails.totalMarks": req.body.totalMarks,
+          "educationDetails.percentage": req.body.percentage,
+          "educationDetails.college": req.body.college,
+          "educationDetails.course": req.body.course,
+          "bankAccountNo": req.body.bankAccountNo,
+        },
+      },
+      { new: true, runValidators: true }
     );
 
-    res.status(200).json({ message: "Student information updated successfully"});
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    res.status(200).json({ message: "Student information updated successfully", student });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    if (error.name === 'ValidationError') {
+      const errorMessages = Object.values(error.errors).map(fieldError => {
+        return `${fieldError.path.split('.').pop()} is ${fieldError.kind === 'required' ? 'required' : fieldError.message}`;
+      });
+
+      return res.status(400).json({ message: errorMessages.join(', ') });
+    }
+    
+    res.status(500).json({ error: error.message });
   }
 };
+
+
 
 exports.logout = async (req, res, next) => {
   req.logout(function(err) {
@@ -236,10 +370,31 @@ exports.isVerified = async (req, res, next) => {
   console.log("Not verified");
 };
 
+exports.applyForScholarship = async (req, res)=>{
+  try {
+    const studentId = req.params.studentId;
+
+    let scholarshipObj = {
+      studentId: new ObjectId(studentId),
+    }
+    let scholarship = await Scholarship.create(scholarshipObj);
+
+    return res.status(200).json({message: "Scholarship Applied"});
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 // Render verification page , will do something of this
 exports.renderVerificationPage = (req, res) => {
   res.render("verify");
 };
+
+
+
+
+
 
 // Atharva's Controller - {Flutter App}
 exports.register = async (req, res) => {

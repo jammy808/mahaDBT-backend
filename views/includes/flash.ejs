@@ -1,0 +1,13 @@
+<% errors.forEach(function(message) { %>
+  <div class="alert alert-bottom alert-danger alert-dismissible fade show " role="alert">
+    <span> <%= message %></span>
+</div>
+<% }) %>
+
+<% success.forEach(function(message) { %>
+  <div class="alert alert-left alert-success alert-dismissible fade show mb-3" role="alert">
+    <span><%= message %></span>
+</div>
+<% }) %>
+
+
