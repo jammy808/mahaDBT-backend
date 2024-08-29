@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const { sendFlutterVerificationEmail } = require("../helpers/email");
+const { uploadSingleFileOnCloudinary } = require("../helpers/cloudinary");
 
 require("dotenv").config();
 
@@ -300,5 +301,57 @@ exports.login = async (req, res, next) => {
       message: "Internal Server Error",
       error: err,
     });
+  }
+};
+
+exports.editProfile = async (req, res) => {
+  try {
+    console.log("Request File");
+
+    // If you are sending only one file only use req.file
+    console.log(req.file);
+
+    // Get the Local Path from the server which will be stored by multer defined in the middleware
+    const image = req.file?.path;
+
+    console.log("LocalPath: ", image);
+
+    if (image == null) {
+      return res.status(200).json({ message: "file not found" });
+    }
+
+    // Use the local Path to upload the file to Cloudinary
+    const result = await uploadSingleFileOnCloudinary(image);
+
+    console.log("Result" + result);
+
+    // Make sure if the file has been uploaded to Cloudinary, store the cloudinary URL in the database
+    if (result == null) {
+      return res.status(200).json({ message: "fail" });
+    }
+
+    // We need to update the user also
+    const { firstName, lastName, email } = req.body;
+    console.log(req.body);
+    console.log(result.url);
+
+    const user = await studentModel.findOneAndUpdate(
+      { email: email },
+      {
+        $set: {
+          firstName: firstName,
+          lastName: lastName,
+          userImage: result.url,
+        },
+      },
+      { new: true }
+    );
+
+    console.log(user);
+
+    return res.status(200).json({ message: "ok", userImage: user.userImage });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };

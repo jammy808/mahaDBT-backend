@@ -17,8 +17,10 @@ const studentSchema = mongoose.Schema({
   username: String,
   password: String,
   email: String,
+  userImage: String,
   token: Number,
   verified: Boolean,
+
   // events: [
   //   {
   //     type: mongoose.Schema.Types.ObjectId,

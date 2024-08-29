@@ -111,5 +111,10 @@ router.post(
 router.post("/register", studentController.register);
 router.post("/isUserVerified", studentController.isUserVerified);
 router.post("/login", studentController.login);
+router.post(
+  "/editProfile",
+  upload.single("userImage"),
+  studentController.editProfile
+);
 
 module.exports = router;
