@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const { sendFlutterVerificationEmail } = require("../helpers/email");
 const { uploadSingleFileOnCloudinary } = require("../helpers/cloudinary");
 const { ObjectId } = require("mongodb");
+const mongoose = require("mongoose");
 
 require("dotenv").config();
 
@@ -16,7 +17,7 @@ passport.use(new localStratergy(studentModel.authenticate()));
 
 // Helper function to send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
-  const currentUrl = "https://localhost:8080/";
+  const currentUrl = "localhost:8000/";
   const uniqueString = uuidv4() + _id;
 
   let transporter = nodemailer.createTransport({
@@ -103,18 +104,6 @@ exports.registerStudent = async (req, res, next) => {
     .then((result) => {
 
       passport.authenticate("local")(req, res, async function () {
-
-        const scholarship = new Scholarship({
-          student: studentData._id,
-          rejected: false,
-          feedback: '',
-        });
-
-        await scholarship.save();
-
-        studentData.scholarship = scholarship._id;
-        await studentData.save();
-
         sendVerificationEmail(result, res);
       });
     })
@@ -221,7 +210,7 @@ exports.loginStudent = (req, res, next) => {
 
 exports.updateStudentProfile = async (req, res) => {
   try {
-    const studentId = req.body.studentId;
+    const studentId = req.body._id;
 
     const userImageFile = req.files?.userImage?.[0];
     const incomeCertificateFile = req.files?.incomeCertificate?.[0];
@@ -275,7 +264,7 @@ exports.updateStudentProfile = async (req, res) => {
           "bankAccountNo": req.body.bankAccountNo,
         },
       },
-      { new: true, runValidators: true }
+      // { new: true, runValidators: true }
     );
 
     if (!student) {
@@ -378,7 +367,8 @@ exports.isVerified = async (req, res, next) => {
 exports.applyForScholarship = async (req, res)=>{
   try {
     const studentId = req.params.studentId;
-
+    console.log(studentId)
+    
     let scholarshipObj = {
       studentId: new ObjectId(studentId),
     }

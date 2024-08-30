@@ -43,7 +43,7 @@ router.post(
 );
 
 // Apply for scholarship route
-router.post("/applyForScholarship/:studentId", studentController.applyForScholarship);
+router.get("/applyForScholarship/:studentId", studentController.applyForScholarship);
 
 // Firebase routes
 
