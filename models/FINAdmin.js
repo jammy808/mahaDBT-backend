@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-const SAGAdminSchema = mongoose.Schema({
+const FINAdminSchema = mongoose.Schema({
   adminFirstName: String,
   adminLastName: String,
   adminEmail: String,
@@ -13,4 +13,4 @@ const SAGAdminSchema = mongoose.Schema({
 
 // SAGAdminSchema.plugin(plm);
 
-module.exports = mongoose.model("SAGAdmin", SAGAdminSchema);
+module.exports = mongoose.model("FINAdmin", FINAdminSchema);

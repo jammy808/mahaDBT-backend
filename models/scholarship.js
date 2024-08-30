@@ -8,6 +8,7 @@ const scholarshipSchema = mongoose.Schema({
   rejected: { type: Boolean, default: false },
   feedback: { type: String },
   appliedDate: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now() }
 });
 
 scholarshipSchema.plugin(plm);

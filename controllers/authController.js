@@ -227,24 +227,29 @@ exports.updateStudentProfile = async (req, res) => {
     const incomeCertificateFile = req.files?.incomeCertificate?.[0];
     const marksheetFile = req.files?.marksheet?.[0];
 
+    console.log(incomeCertificateFile);
+    
+
     if (!userImageFile || !incomeCertificateFile || !marksheetFile) {
       return res.status(400).json({ message: "Required files are missing" });
     }
 
     const userImagePath = userImageFile.path;
-    const incomeCertificatePath = incomeCertificateFile.path;
-    const marksheetPath = marksheetFile.path;
+    const incomeCertificatePath = incomeCertificateFile.filename;
+    const marksheetPath = marksheetFile.filename;
 
     const userImageResult = await uploadSingleFileOnCloudinary(userImagePath);
-    const incomeCertificateResult = await uploadSingleFileOnCloudinary(incomeCertificatePath);
-    const markSheetCertificateResult = await uploadSingleFileOnCloudinary(marksheetPath);
+    // const incomeCertificateResult = await uploadSingleFileOnCloudinary(incomeCertificatePath);
+    // const markSheetCertificateResult = await uploadSingleFileOnCloudinary(marksheetPath);
 
-    if (!userImageResult || !incomeCertificateResult || !markSheetCertificateResult) {
+
+
+    if (!userImageResult || !incomeCertificatePath || !marksheetPath) {
       return res.status(500).json({ message: "Failed to upload files" });
     }
 
     let student = await studentModel.findOneAndUpdate(
-      { _id: new mongoose.Types.ObjectId(studentId) },
+      { _id: new ObjectId(studentId) },
       {
         $set: {
           "personalDetails.firstName": req.body.firstName,
@@ -260,9 +265,9 @@ exports.updateStudentProfile = async (req, res) => {
           "incomeDetails.isIncomeCertificateAvailable": req.body.isIncomeCertificateAvailable,
           "incomeDetails.annualIncome": req.body.annualIncome,
           "incomeDetails.incomeCertificateNo": req.body.incomeCertificateNo,
-          "incomeDetails.incomeCertificate": incomeCertificateResult.url,
+          "incomeDetails.incomeCertificate": incomeCertificatePath,
           "incomeDetails.issuedDate": new Date(req.body.issuedDate),
-          "educationDetails.marksheet": markSheetCertificateResult.url,
+          "educationDetails.marksheet": marksheetPath,
           "educationDetails.totalMarks": req.body.totalMarks,
           "educationDetails.percentage": req.body.percentage,
           "educationDetails.college": req.body.college,
@@ -378,6 +383,12 @@ exports.applyForScholarship = async (req, res)=>{
       studentId: new ObjectId(studentId),
     }
     let scholarship = await Scholarship.create(scholarshipObj);
+
+    let studentObj = await studentModel.findOneAndUpdate({_id: new ObjectId(studentId)}, {
+      $set: {
+        scholarshipId: scholarship._id,
+      }
+    });
 
     return res.status(200).json({message: "Scholarship Applied"});
   } catch (error) {

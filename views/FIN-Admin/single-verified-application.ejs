@@ -1,0 +1,320 @@
+<%- include('../includes/finHeader.ejs') %>
+
+<style>
+  #validate {
+    border-color: #1aa053;
+    padding-right: -webkit-calc(1.5em + 1rem);
+    padding-right: calc(1.5em + 1rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%231aa053' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right -webkit-calc(0.375em + 0.25rem) center;
+    background-position: right calc(0.375em + 0.25rem) center;
+    -webkit-background-size: -webkit-calc(0.75em + 0.5rem) -webkit-calc(0.75em +
+          0.5rem);
+    background-size: calc(0.75em + 0.5rem) calc(0.75em + 0.5rem);
+  }
+</style>
+
+<main class="main-content">
+  <div class="position-relative iq-banner">
+    <!-- Nav Header Component Start -->
+    <div class="iq-navbar-header" style="height: 215px">
+      <div class="container-fluid iq-container">
+        <div class="row">
+          <div class="col-md-12">
+            <div
+              class="flex-wrap d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <h1>Finance Portal</h1>
+                <p>
+                  The Finance Bureau will process scholarship payments after
+                  receiving verified documents from the SAG Bureau. Their
+                  responsibilities include prompt payment execution, real-time
+                  tracking, and ensuring compliance with financial regulations
+                  in a secure, paperless environment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="iq-header-img">
+        <img
+          src="/images/dashboard/top-header.png"
+          alt="header"
+          class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header1.png"
+          alt="header"
+          class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header2.png"
+          alt="header"
+          class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header3.png"
+          alt="header"
+          class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header4.png"
+          alt="header"
+          class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header5.png"
+          alt="header"
+          class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX"
+        />
+      </div>
+    </div>
+    <!-- Nav Header Component End -->
+    <!--Nav End-->
+  </div>
+  <div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div class="row">
+      <%- include('../includes/flash.ejs') %>
+      <div class="col-xl-3 col-lg-4">
+        <div class="card">
+          <!-- <div class="card-header d-flex justify-content-between">
+                  <div class="header-title">
+                     <h4 class="card-title">Add New User</h4>
+                  </div>
+               </div> -->
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <div
+                  class="profile-img-edit position-relative d-flex align-items-center justify-content-center"
+                >
+                  <img
+                    src="<%= application.studentData.personalDetails.userImage %>"
+                    alt="profile-pic"
+                    class="theme-color-default-img profile-pic left-10 rounded-full avatar-130"
+                    style="border-radius: 50%; border: 2px solid #2058e7"
+                  />
+                </div>
+              </div>
+              <h5 class="text-center">
+                <strong>
+                  <%= application.studentData.personalDetails.firstName %> <%=
+                  application.studentData.personalDetails.lastName %>
+                </strong>
+              </h5>
+              <!-- <div class="form-group">
+                        <label class="form-label">User Role:</label>
+                        <select name="type" class="selectpicker form-control" data-style="py-0">
+                           <option>Select</option>
+                           <option>Web Designer</option>
+                           <option>Web Developer</option>
+                           <option>Tester</option>
+                           <option>Php Developer</option>
+                           <option>Ios Developer </option>
+                        </select>
+                     </div>
+                     <div class="form-group">
+                        <label class="form-label" for="furl">Facebook Url:</label>
+                        <input type="text" class="form-control" id="furl" placeholder="Facebook Url">
+                     </div>
+                     <div class="form-group">
+                        <label class="form-label" for="turl">Twitter Url:</label>
+                        <input type="text" class="form-control" id="turl" placeholder="Twitter Url">
+                     </div>
+                     <div class="form-group">
+                        <label class="form-label" for="instaurl">Instagram Url:</label>
+                        <input type="text" class="form-control" id="instaurl" placeholder="Instagram Url">
+                     </div>
+                     <div class="form-group mb-0">
+                        <label class="form-label" for="lurl">Linkedin Url:</label>
+                        <input type="text" class="form-control" id="lurl" placeholder="Linkedin Url">
+                     </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 col-lg-8">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+              <h4 class="card-title"><%= application.schemeName %></h4>
+              <hr />
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="new-user-info">
+              <form>
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label for="validationCustom01" class="form-label"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.firstName %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="lname">Middle Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.middleName %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="add1"
+                      >Last Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.lastName %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="add2"
+                      >Street Address 2:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="add2"
+                      placeholder="Street Address 2"
+                    />
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="cname">Company Name:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cname"
+                      placeholder="Company Name"
+                    />
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <label class="form-label">Country:</label>
+                    <select
+                      name="type"
+                      class="selectpicker form-control"
+                      data-style="py-0"
+                    >
+                      <option>Select Country</option>
+                      <option>Caneda</option>
+                      <option>Noida</option>
+                      <option>USA</option>
+                      <option>India</option>
+                      <option>Africa</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="mobno">Mobile Number:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="mobno"
+                      placeholder="Mobile Number"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="altconno"
+                      >Alternate Contact:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="altconno"
+                      placeholder="Alternate Contact"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="email">Email:</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="pno">Pin Code:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="pno"
+                      placeholder="Pin Code"
+                    />
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="city">Town/City:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="city"
+                      placeholder="Town/City"
+                    />
+                  </div>
+                </div>
+                <hr />
+                <h5 class="mb-3">Security</h5>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="uname">User Name:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="uname"
+                      placeholder="User Name"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="pass">Password:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="pass"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="rpass"
+                      >Repeat Password:</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="rpass"
+                      placeholder="Repeat Password "
+                    />
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label class="form-label"
+                    ><input
+                      class="form-check-input me-2"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckChecked"
+                    />Enable Two-Factor-Authentication</label
+                  >
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Add New User
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('../includes/footer.ejs') %>

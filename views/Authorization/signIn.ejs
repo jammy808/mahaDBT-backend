@@ -6,11 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>EduSaathi - A Better Future</title>
+    <title>EduSaathi - A Better Scholarship platform</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/images/favicon.ico" />
-
+    
    
 
     <!-- Library / Plugin Css Build -->
@@ -59,11 +59,11 @@
               >
                 <div class="card-body">
                   <a
-                    href="../../dashboard/index.html"
+                    href="/"
                     class="navbar-brand d-flex align-items-center mb-0"
                   >
                     <!--Logo start-->
-                    <svg
+                    <!-- <svg
                       width="30"
                       class=""
                       viewBox="0 0 30 30"
@@ -106,13 +106,18 @@
                         transform="rotate(45 10.5562 -0.556152)"
                         fill="currentColor"
                       />
-                    </svg>
+                    </svg> -->
+                    <img src="/images/logo.png" alt="" width="50" height="50">
                     <!--logo End-->
-                    <h4 class="logo-title ms-3">EduSaathi</h4>
+                    <h4 class="logo-title ms-3">
+                      <strong>
+                        Edu<span class="text-primary">Saathi</span>
+                      </strong> 
+                    </h4>
                   </a>
                   <h2 class="mb-2 text-center">Sign In</h2>
                   <p class="text-center">Login to stay connected.</p>
-                  <form action="/SAG/login" method="POST">
+                  <form action="/login" method="POST">
                     <%- include('../includes/flash.ejs') %>
                     <div class="row">
                       <div class="col-lg-12">
@@ -153,6 +158,15 @@
                             aria-describedby="password"
                             placeholder=" "
                           />
+                        </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                          <label for="role" class="form-label">Select Role</label>
+                          <select class="form-select" name="adminRole" aria-label="Default select example">
+                            <option value="SAGAdmin">SAG Admin</option>
+                            <option value="FINAdmin">Finance Admin</option>
+                          </select>
                         </div>
                       </div>
                       <!-- <div class="col-lg-12 d-flex justify-content-between">

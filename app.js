@@ -11,6 +11,7 @@ const expressSession = require("express-session");
 const passport = require("passport");
 var admin = require("firebase-admin");
 const flash = require("connect-flash");
+const MongoStore = require("connect-mongo");
 
 var indexRouter = require("./router");
 var studentRouter = require("./models/student");
@@ -39,6 +40,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: "giteesh-gay",
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: "sessions"}),
+    cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}
   })
 );
 
