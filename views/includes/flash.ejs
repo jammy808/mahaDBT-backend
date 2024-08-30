@@ -1,5 +1,5 @@
 <% errors.forEach(function(message) { %>
-  <div class="alert alert-bottom alert-danger alert-dismissible fade show " role="alert">
+  <div class="alert alert-bottom alert-danger alert-dismissible fade show" role="alert">
     <span> <%= message %></span>
 </div>
 <% }) %>
@@ -10,4 +10,16 @@
 </div>
 <% }) %>
 
+<script>
+  console.log("Hello js");
+  let alert = document.querySelector(".fade");
+  console.log(alert);
 
+  setTimeout(() => {
+    console.log("It runs");
+
+    if (alert) {
+      alert.remove();
+    }
+  }, 2000);
+</script>

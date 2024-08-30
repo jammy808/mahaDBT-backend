@@ -1,0 +1,383 @@
+<%- include('../includes/header.ejs') %>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Rejection Form</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sendFeedback/<%= application._id %>" method="post">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Reason for rejecting the form?</label>
+                        <input type="text" class="form-control" name="feedback" placeholder=""/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Send Feedback</button>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+
+  
+<div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="docModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="docModalLabel">Income Certificate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe src="http://localhost:8000/documents/<%= application.studentData.incomeDetails.incomeCertificate %>" width="100%" height="500px" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="markSheetdocModal" tabindex="-1" aria-labelledby="markSheetdocModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="markSheetdocModal">SSC Marksheet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe src="http://localhost:8000/documents/<%= application.studentData.educationDetails.marksheet %>" width="100%" height="500px" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<main class="main-content">
+  <div class="position-relative iq-banner">
+    <!-- Nav Header Component Start -->
+    <div class="iq-navbar-header" style="height: 215px">
+      <div class="container-fluid iq-container">
+        <div class="row">
+          <div class="col-md-12">
+            <div
+              class="flex-wrap d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <h1>SAG Portal</h1>
+                <p>
+                    Here, we view and manage all pending applications, verify documents, and ensure compliance. After review, the admin can approve or request further action, streamlining the verification process.
+                </p>
+              </div>
+              <!-- <div>
+                <a href="" class="btn btn-link btn-soft-light">
+                  <svg
+                    class="icon-20"
+                    width="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.8251 15.2171H12.1748C14.0987 15.2171 15.731 13.985 16.3054 12.2764C16.3887 12.0276 16.1979 11.7713 15.9334 11.7713H14.8562C14.5133 11.7713 14.2362 11.4977 14.2362 11.16C14.2362 10.8213 14.5133 10.5467 14.8562 10.5467H15.9005C16.2463 10.5467 16.5263 10.2703 16.5263 9.92875C16.5263 9.58722 16.2463 9.31075 15.9005 9.31075H14.8562C14.5133 9.31075 14.2362 9.03619 14.2362 8.69849C14.2362 8.35984 14.5133 8.08528 14.8562 8.08528H15.9005C16.2463 8.08528 16.5263 7.8088 16.5263 7.46728C16.5263 7.12575 16.2463 6.84928 15.9005 6.84928H14.8562C14.5133 6.84928 14.2362 6.57472 14.2362 6.23606C14.2362 5.89837 14.5133 5.62381 14.8562 5.62381H15.9886C16.2483 5.62381 16.4343 5.3789 16.3645 5.13113C15.8501 3.32401 14.1694 2 12.1748 2H11.8251C9.42172 2 7.47363 3.92287 7.47363 6.29729V10.9198C7.47363 13.2933 9.42172 15.2171 11.8251 15.2171Z"
+                      fill="currentColor"
+                    ></path>
+                    <path
+                      opacity="0.4"
+                      d="M19.5313 9.82568C18.9966 9.82568 18.5626 10.2533 18.5626 10.7823C18.5626 14.3554 15.6186 17.2627 12.0005 17.2627C8.38136 17.2627 5.43743 14.3554 5.43743 10.7823C5.43743 10.2533 5.00345 9.82568 4.46872 9.82568C3.93398 9.82568 3.5 10.2533 3.5 10.7823C3.5 15.0873 6.79945 18.6413 11.0318 19.1186V21.0434C11.0318 21.5715 11.4648 22.0001 12.0005 22.0001C12.5352 22.0001 12.9692 21.5715 12.9692 21.0434V19.1186C17.2006 18.6413 20.5 15.0873 20.5 10.7823C20.5 10.2533 20.066 9.82568 19.5313 9.82568Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                  Announcements
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="iq-header-img">
+        <img
+          src="/images/dashboard/top-header.png"
+          alt="header"
+          class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header1.png"
+          alt="header"
+          class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header2.png"
+          alt="header"
+          class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header3.png"
+          alt="header"
+          class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header4.png"
+          alt="header"
+          class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX"
+        />
+        <img
+          src="/images/dashboard/top-header5.png"
+          alt="header"
+          class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX"
+        />
+      </div>
+    </div>
+    <!-- Nav Header Component End -->
+    <!--Nav End-->
+  </div>
+  <div class="conatiner-fluid content-inner mt-4 py-0">
+    <div>
+        <div class="row">                
+            <div class="col-sm-12 col-lg-12">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-title">
+                            <h4 class="card-title"><%= application.schemeName %></h4>
+                        </div>
+                        <hr>
+                        </div>
+                        <div class="card-body">
+                            <!-- <div>
+                                <div class="circular">
+                                    <div class="inner"></div>
+                                    <div class="outer"></div>
+                                    <div class="numb">
+                                       0%
+                                    </div>
+                                    <div class="circle">
+                                       <div class="dot">
+                                          <span></span>
+                                       </div>
+                                       <div class="bar left">
+                                          <div class="progress"></div>
+                                       </div>
+                                       <div class="bar right">
+                                          <div class="progress"></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                            </div> -->
+                            <form action="/verifyApplication/<%= application._id %>/<%= application.studentId %>" method="post" id="form-wizard1" class="mt-3 text-center">
+                                <ul id="top-tab-list" class="mb-4 p-0 row list-inline">
+                                    <li class="mb-2 col-lg-3 col-md-3 text-start active" id="account">
+                                        <a href="javascript:void();" class="inline-block">
+                                            <div class="iq-icon me-3">
+                                                <svg class="svg-icon icon-20" xmlns="http://www.w3.org/2000/svg"  width="25" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>                                      
+                                            </div>
+                                            <span class="dark-wizard">Personal</span>
+                                        </a>
+                                    </li>
+                                    <li id="personal" class="mb-2 col-lg-3 col-md-3 text-start">
+                                        <a href="javascript:void();" class="inline-block">
+                                            <div class="iq-icon me-3">
+                                                <svg class="icon-32" width="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M7.37121 10.2017V17.0618" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M12.0382 6.91919V17.0619" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M16.6285 13.8269V17.0619" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6857 2H7.31429C4.04762 2 2 4.31208 2 7.58516V16.4148C2 19.6879 4.0381 22 7.31429 22H16.6857C19.9619 22 22 19.6879 22 16.4148V7.58516C22 4.31208 19.9619 2 16.6857 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            
+                                            </div>
+                                            <span class="dark-wizard">Education</span>
+                                        </a>
+                                    </li>
+                                    <li id="payment" class="mb-2 col-lg-3 col-md-6 text-start">
+                                        <a href="javascript:void();">
+                                            <div class="iq-icon me-3">
+                                                <svg class="icon-32" width="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                    <path d="M15.7161 16.2234H8.49609" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M15.7161 12.0369H8.49609" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path d="M11.2521 7.86011H8.49707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.909 2.74976C15.909 2.74976 8.23198 2.75376 8.21998 2.75376C5.45998 2.77076 3.75098 4.58676 3.75098 7.35676V16.5528C3.75098 19.3368 5.47298 21.1598 8.25698 21.1598C8.25698 21.1598 15.933 21.1568 15.946 21.1568C18.706 21.1398 20.416 19.3228 20.416 16.5528V7.35676C20.416 4.57276 18.693 2.74976 15.909 2.74976Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>                                </svg>                            
+                                            </div>
+                                            <span class="dark-wizard">Income</span>
+                                        </a>
+                                    </li>
+                                    <li id="confirm" class="mb-2 col-lg-3 col-md-6 text-start">
+                                        <a href="javascript:void();">
+                                            <div class="iq-icon me-3">
+                                                <svg class="icon-32" width="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                <path opacity="0.4" d="M18.8089 9.021C18.3574 9.021 17.7594 9.011 17.0149 9.011C15.199 9.011 13.7059 7.508 13.7059 5.675V2.459C13.7059 2.206 13.503 2 13.2525 2H7.96436C5.49604 2 3.5 4.026 3.5 6.509V17.284C3.5 19.889 5.59109 22 8.1703 22H16.0455C18.5059 22 20.5 19.987 20.5 17.502V9.471C20.5 9.217 20.298 9.012 20.0465 9.013C19.6238 9.016 19.1168 9.021 18.8089 9.021Z" fill="currentColor"></path>                                <path opacity="0.4" d="M16.0842 2.56737C15.7852 2.25637 15.2632 2.47037 15.2632 2.90137V5.53837C15.2632 6.64437 16.1732 7.55437 17.2792 7.55437C17.9772 7.56237 18.9452 7.56437 19.7672 7.56237C20.1882 7.56137 20.4022 7.05837 20.1102 6.75437C19.0552 5.65737 17.1662 3.69137 16.0842 2.56737Z" fill="currentColor"></path>                                <path d="M15.1052 12.7088C14.8132 12.4198 14.3432 12.4178 14.0512 12.7108L12.4622 14.3078V9.48084C12.4622 9.06984 12.1282 8.73584 11.7172 8.73584C11.3062 8.73584 10.9722 9.06984 10.9722 9.48084V14.3078L9.38224 12.7108C9.09124 12.4178 8.62024 12.4198 8.32924 12.7088C8.03724 12.9988 8.03724 13.4698 8.32624 13.7618L11.1892 16.6378H11.1902C11.2582 16.7058 11.3392 16.7608 11.4302 16.7988C11.5202 16.8358 11.6182 16.8558 11.7172 16.8558C11.8172 16.8558 11.9152 16.8358 12.0052 16.7978C12.0942 16.7608 12.1752 16.7058 12.2432 16.6388L12.2452 16.6378L15.1072 13.7618C15.3972 13.4698 15.3972 12.9988 15.1052 12.7088Z" fill="currentColor"></path>                                </svg>                            
+                                            </div>
+                                            <span class="dark-wizard">Document's</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- fieldsets -->
+                                <fieldset>
+                                    <div class="form-card text-start mt-0">
+                                        <div class="profile-img-edit position-relative mb-4">
+                                            <img src="<%= application.studentData.personalDetails.userImage %>" alt="profile-pic" class="theme-color-default-img profile-pic border object-fit-cover avatar-130">
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="disabledTextInput" class="form-label">Student Name</label>
+                                                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= application.studentData.personalDetails.firstName %> <%= application.studentData.personalDetails.middleName %> <%= application.studentData.personalDetails.lastName %>" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Username</label>
+                                                <input type="text" class="form-control" name="uname" placeholder="<%= application.studentData.username %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Email Address</label>
+                                                <input type="text" class="form-control" name="uname" placeholder="<%= application.studentData.email %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Mobile No</label>
+                                                <input type="text" class="form-control" name="uname" placeholder="<%= application.studentData.personalDetails.mobileNo %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Guardian Mobile No</label>
+                                                <input type="password" class="form-control" name="pwd" placeholder="<%= application.studentData.personalDetails.guardianMobileNo %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Birth Date</label>
+                                                <input type="text" class="form-control" name="pwd" placeholder="<%= moment(application.studentData.personalDetails.birthDate).format('DD-MM-YYYY') %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Age</label>
+                                                <input type="number" class="form-control" name="pwd" placeholder="<%= application.studentData.personalDetails.age %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Gender</label>
+                                                <input type="text" class="form-control text-capitalize" name="pwd" placeholder="<%= application.studentData.personalDetails.gender %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Address</label>
+                                                <!-- <input type="password" class="form-control" name="cpwd" placeholder="Confirm Password" /> -->
+                                                <textarea class="form-control" name="" id="" placeholder="<%= application.studentData.personalDetails.address %>" readonly style="resize: none;"></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex items-center justify-content-end gap-2">
+                                        <button type="button" name="proceed" class="btn btn-primary next action-button float-end" value="Proceed" >Proceed</button>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card text-start">
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">College Name</label>
+                                                <input type="text" class="form-control" name="fname" placeholder="<%= application.studentData.educationDetails.college %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Course</label>
+                                                <input type="text" class="form-control" name="lname" placeholder="<%= application.studentData.educationDetails.course %>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">SSC Marks</label>
+                                                <input type="number" class="form-control" name="phno" placeholder="<%= application.studentData.educationDetails.totalMarks %> out of 500" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Percentage</label>
+                                                <input type="text" class="form-control" name="phno_2" placeholder="<%= application.studentData.educationDetails.percentage %>" readonly />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next" >Next</button>
+                                    <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Previous</button>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card text-start">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Is Income Certificate Available?</label>
+                                                    <input type="text" class="form-control" name="fname" placeholder="<%= application.studentData.incomeDetails.isIncomeCertificateAvailable %>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Annual Income</label>
+                                                    <input type="text" class="form-control" name="lname" placeholder="<%= application.studentData.incomeDetails.annualIncome %>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Income Certificate No</label>
+                                                    <input type="number" class="form-control" name="phno" placeholder="<%= application.studentData.incomeDetails.incomeCertificateNo %>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Issued Date</label>
+                                                    <input type="text" class="form-control" name="phno_2" placeholder="<%= moment(application.studentData.incomeDetails.issuedDate).format('DD-MM-YYYY') %>" readonly />
+                                                </div>
+                                            </div>
+                                            </div>
+                                    </div>
+                                    <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next" >Next</button>
+                                    <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Previous</button>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card d-flex align-items-center gap-4">
+                                          <div class="card shadow-sm" style="width: 15rem;">
+                                            <div class="card-body text-center">
+                                              <div class="mb-3">
+                                                <span data-bs-toggle="modal" data-bs-target="#docModal" style="cursor: pointer;">
+                                                  <img src="/images/pdfImg.png" width="50%" height="50%" alt="Income Certificate">
+                                                </span>
+                                              </div>
+                                              <p class="mb-2 text-primary">Income Certificate</p>
+                                            </div>
+                                          </div>
+                                          <div class="card shadow-sm" style="width: 15rem;">
+                                            <div class="card-body text-center">
+                                              <div class="mb-3">
+                                                <span data-bs-toggle="modal" data-bs-target="#markSheetdocModal" style="cursor: pointer;">
+                                                  <img src="/images/pdfImg.png" width="50%" height="50%" alt="Marksheet">
+                                                </span>
+                                              </div>
+                                              <p class="mb-2 text-primary">SSC Marksheet</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="d-flex items-center justify-content-end gap-2">
+                                        <button type="button" name="reject" class="btn btn-danger next action-button float-end" value="Reject" data-bs-toggle="modal" data-bs-target="#exampleModal" >Reject</button>
+                                        <!-- <form action="" method="POST"> -->
+                                            <button type="submit" name="submit" class="btn btn-primary next action-button float-end" value="Submit" >Verify</button>
+                                        <!-- </form> -->
+                                    </div>
+
+                                    <!-- <button type="button" class="btn btn-primary" >
+                                        Launch demo modal
+                                      </button>
+ -->
+                                    
+                                </fieldset>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+</main>
+
+<%- include('../includes/footer.ejs') %>

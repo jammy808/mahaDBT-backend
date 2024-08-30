@@ -1,97 +1,94 @@
 const mongoose = require("mongoose");
 const plm = require("passport-local-mongoose");
+const scholarship = require("./scholarship");
 
 require("dotenv").config();
 
-const nonEmptyStringValidator = {
-  validator: function(v) {
-    return v && v.trim().length > 0;
-  },
-  message: 'Field cannot be an empty string'
-};
 
 const studentSchema = mongoose.Schema({
   username: { 
-    type: String
+    type: String, 
   },
   password: { 
-    type: String
+    type: String, 
   },
   email: { 
     type: String, 
-    unique: true
+    unique: true, 
   },
   token: Number,
   verified: Boolean,
   personalDetails: {
     firstName: { 
-      type: String
+      type: String, 
     },
     middleName: { 
-      type: String
+      type: String, 
     },
     lastName: { 
-      type: String
+      type: String, 
     },
     mobileNo: { 
-      type: String
+      type: String, 
     },
     guardianMobileNo: { 
-      type: String
+      type: String,
     },
     birthDate: { 
-      type: Date 
+      type: Date, 
     },
     userImage: { 
-      type: String
+      type: String,
     },
     address: { 
-      type: String
+      type: String, 
     },
     gender: { 
-      type: String
+      type: String, 
     },
     age: { 
-      type: Number 
+      type: Number, 
     },
   },
   incomeDetails: {
     isIncomeCertificateAvailable: { 
-      type: Boolean 
+      type: Boolean, 
     },
     annualIncome: { 
-      type: String
+      type: String, 
     },
     incomeCertificate: { 
-      type: String
+      type: String, 
     },
     incomeCertificateNo: { 
-      type: String
+      type: String, 
     },
     issuedDate: { 
-      type: Date 
+      type: Date, 
     },
   },
   educationDetails: {
     marksheet: { 
-      type: String
+      type: String, 
     },
     totalMarks: { 
-      type: Number 
+      type: Number, 
     },
     percentage: { 
-      type: String
+      type: String, 
     },
     college: { 
-      type: String
+      type: String, 
     },
     course: { 
-      type: String
+      type: String, 
     },
   },
   bankAccountNo: { 
-    type: String
+    type: String, 
   },
+  scholarshipId: { type: mongoose.Schema.Types.ObjectId, ref: "Scholarship" },
+  createdAt: { type: Date, default: Date.now() }
 });
 
 studentSchema.plugin(plm);

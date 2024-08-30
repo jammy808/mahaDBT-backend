@@ -3,8 +3,9 @@ const router = express.Router();
 const studentController = require("./controllers/authController");
 const firebaseController = require("./controllers/firebaseController");
 const uploadController = require("./controllers/uploadController");
-const sagController = require("./controllers/SAG-Admin/sagController");
-const upload = require("./middlewares/multer");
+const sagController = require("./controllers/sagController");
+const finController = require("./controllers/finController");
+const {upload, doc} = require("./middlewares/multer");
 
 // router.get("/", (req, res) => {
 //   res.render("Hello");
@@ -37,7 +38,7 @@ router.get("/profile", studentController.ensureAuthenticated, (req, res) => {
 router.post(
   "/updateStudentProfile",
   // studentController.ensureAuthenticated,
-  upload.fields([{ name: "userImage" }, { name: "incomeCertificate" }, { name: "marksheet" }]),
+  doc.fields([{ name: "userImage" }, { name: "incomeCertificate" }, { name: "marksheet" }]),
   studentController.updateStudentProfile
 );
 
@@ -123,9 +124,34 @@ router.post(
 router.get("/", (req, res) => {
   res.render("Authorization/signIn");
 });
-router.post("/SAG/login", sagController.loginSAGAdmin);
+router.post("/login", sagController.loginAdmin);
 router.get("/SAG/home", sagController.home);
 router.get("/SAG/viewAllPendingApplications", sagController.viewAllPendingApplications);
+router.get("/SAG/viewAllVerifiedApplications", sagController.viewAllVerifiedApplications);
+router.get("/SAG/viewAllRejectedApplications", sagController.viewAllRejectedApplications);
+router.get("/SAG/viewSinglePendingAppById/:scholarshipId/:studentId", sagController.viewSinglePendingAppById);
+router.post("/sendFeedback/:scholarshipId", sagController.sendFeedback);
+router.post("/verifyApplication/:scholarshipId/:studentId", sagController.verifyApplication);
+router.post("/logoutSAGAdmin", sagController.logoutSAGAdmin);
+
+// Atharva's Routes - { FIN Dashboard }
+router.get("/FIN/home", finController.home);
+router.get("/FIN/viewSingleVerifiedAppById/:scholarshipId/:studentId", finController.viewSingleVerifiedAppById);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Atharva's Routes - {Flutter App}
 
