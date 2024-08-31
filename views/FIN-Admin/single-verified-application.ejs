@@ -180,14 +180,13 @@
                 <hr />
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <label for="validationCustom01" class="form-label"
-                      >First Name</label
-                    >
+                    <label for="validationCustom01" class="form-label">First Name</label>
                     <input
                       type="text"
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.personalDetails.firstName %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -197,6 +196,7 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.personalDetails.middleName %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -206,6 +206,7 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.personalDetails.lastName %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -215,6 +216,7 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.email %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -224,6 +226,7 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.personalDetails.mobileNo %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-sm-4">
@@ -233,6 +236,7 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.personalDetails.guardianMobileNo %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -242,17 +246,17 @@
                       class="form-control"
                       id="validate"
                       placeholder="<%= moment(application.studentData.personalDetails.birthDate).format('DD-MM-YYYY') %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
-                    <label class="form-label" for="altconno"
-                      >Age</label
-                    >
+                    <label class="form-label" for="altconno">Age</label>
                     <input
                       type="text"
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.personalDetails.age %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -262,11 +266,17 @@
                       class="form-control text-capitalize"
                       id="validate"
                       value="<%= application.studentData.personalDetails.gender %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-12">
                     <label class="form-label" for="pno">Address</label>
-                    <textarea style="resize: none;" name="" class="form-control" id="validate"><%= application.studentData.personalDetails.address %></textarea>
+                    <textarea
+                      style="resize: none;"
+                      class="form-control"
+                      id="validate"
+                      readonly
+                    ><%= application.studentData.personalDetails.address %></textarea>
                   </div>
                 </div>
                 <h5 class="mb-3 text-primary">Education Detail's</h5>
@@ -279,6 +289,7 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.educationDetails.college %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-6">
@@ -288,103 +299,107 @@
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.educationDetails.course %>"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="form-label" for="rpass">SSC Marks</label
-                    >
+                    <label class="form-label" for="rpass">SSC Marks</label>
                     <input
                       type="text"
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.educationDetails.totalMarks %> out of 500"
+                      readonly
                     />
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="form-label" for="rpass">Percentage</label
-                    >
+                    <label class="form-label" for="rpass">Percentage</label>
                     <input
                       type="text"
                       class="form-control"
                       id="validate"
                       value="<%= application.studentData.educationDetails.percentage %>"
+                      readonly
                     />
                   </div>
                 </div>
                 <h5 class="mb-3 text-primary">Income Detail's</h5>
                 <hr>
                 <div class="row">
-                    <div class="form-group col-md-6">
-                      <label class="form-label" for="uname">Is Income Available?</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="validate"
-                        value="<%= application.studentData.incomeDetails.isIncomeCertificateAvailable %>"
-                      />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="form-label" for="pass">Annual Income</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="validate"
-                        value="<%= application.studentData.incomeDetails.annualIncome %>"
-                      />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="form-label" for="rpass">Income Certificate No</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="validate"
-                        value="<%= application.studentData.incomeDetails.incomeCertificateNo %>"
-                      />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="form-label" for="rpass">Issued Date</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="validate"
-                        placeholder="<%= moment(application.studentData.incomeDetails.issuedDate).format('DD-MM-YYYY') %>"
-                      />
-                    </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="uname">Is Income Available?</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.incomeDetails.isIncomeCertificateAvailable %>"
+                      readonly
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="pass">Annual Income</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.incomeDetails.annualIncome %>"
+                      readonly
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="rpass">Income Certificate No</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.incomeDetails.incomeCertificateNo %>"
+                      readonly
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="rpass">Issued Date</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      placeholder="<%= moment(application.studentData.incomeDetails.issuedDate).format('DD-MM-YYYY') %>"
+                      readonly
+                    />
+                  </div>
                 </div>
                 <h5 class="mb-3 text-primary">Required Document's</h5>
                 <hr>
                 <div class="row">
-                    <div class="d-flex align-items-center gap-4">
-                        <div class="card shadow-sm" style="width: 12rem;">
-                            <div class="card-body text-center">
-                              <div class="mb-3">
-                                <span data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
-                                  <img src="/images/pdfImg.png" width="50%" height="50%" alt="Income Certificate">
-                                </span>
-                              </div>
-                              <p class="mb-2 text-primary">Income Certificate</p>
-                            </div>
-                          </div>
-                          <div class="card shadow-sm" style="width: 12rem;">
-                            <div class="card-body text-center">
-                              <div class="mb-3">
-                                <span data-bs-toggle="modal" data-bs-target="#markSheetdocModal" style="cursor: pointer;">
-                                  <img src="/images/pdfImg.png" width="50%" height="50%" alt="Marksheet">
-                                </span>
-                              </div>
-                              <p class="mb-2 text-primary">SSC Marksheet</p>
-                            </div>
-                          </div>
+                  <div class="d-flex align-items-center gap-4">
+                    <div class="card shadow-sm" style="width: 12rem;">
+                      <div class="card-body text-center">
+                        <div class="mb-3">
+                          <span data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
+                            <img src="/images/pdfImg.png" width="50%" height="50%" alt="Income Certificate">
+                          </span>
+                        </div>
+                        <p class="mb-2 text-primary">Income Certificate</p>
+                      </div>
                     </div>
+                    <div class="card shadow-sm" style="width: 12rem;">
+                      <div class="card-body text-center">
+                        <div class="mb-3">
+                          <span data-bs-toggle="modal" data-bs-target="#markSheetdocModal" style="cursor: pointer;">
+                            <img src="/images/pdfImg.png" width="50%" height="50%" alt="Marksheet">
+                          </span>
+                        </div>
+                        <p class="mb-2 text-primary">SSC Marksheet</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
-                    <button type="submit" class="btn btn-success">
-                        Payment Done
-                    </button>
+                  <button type="submit" class="btn btn-success">
+                    Payment Done
+                  </button>
                 </div>
               </form>
+              
             </div>
           </div>
         </div>
