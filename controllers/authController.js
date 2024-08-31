@@ -17,7 +17,7 @@ passport.use(new localStratergy(studentModel.authenticate()));
 
 // Helper function to send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
-  const currentUrl = "localhost:8000/";
+  const currentUrl = "http://localhost:8000/";
   const uniqueString = uuidv4() + _id;
 
   let transporter = nodemailer.createTransport({
