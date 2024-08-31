@@ -34,6 +34,8 @@ router.get("/profile", studentController.ensureAuthenticated, (req, res) => {
   res.status(200).json({ user: req.user });
 });
 
+router.get("/scholarship", studentController.ensureAuthenticated, studentController.getScholarship);
+
 //update user details : 1st draft
 router.post(
   "/updateStudentProfile",

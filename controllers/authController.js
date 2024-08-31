@@ -285,7 +285,26 @@ exports.updateStudentProfile = async (req, res) => {
   }
 };
 
+exports.getScholarship = async (req, res) => {
+  try {
+    const user = req.user; // Assume user is already attached to the req object via middleware
 
+    // Check if the user has a scholarshipId
+    if (user.scholarshipId) {
+      // Find the scholarship details based on the scholarshipId
+      const scholarship = await Scholarship.findById(user.scholarshipId);
+
+      // Return user data along with scholarship details
+      return res.status(200).json({ scholarship: scholarship });
+    } else {
+      // Return user data without scholarship details
+      return res.status(200).json({ scholarship: null });
+    }
+  } catch (error) {
+    // Handle errors and send an error response
+    return res.status(500).json({ error: 'Failed to fetch profile data' });
+  }
+};
 
 exports.logout = async (req, res, next) => {
   req.logout(function(err) {
