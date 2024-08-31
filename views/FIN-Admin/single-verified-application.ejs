@@ -15,6 +15,36 @@
   }
 </style>
 
+
+    
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Income Certificate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe src="http://localhost:8000/documents/<%= application.studentData.incomeDetails.incomeCertificate %>" width="100%" height="500px" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="markSheetdocModal" tabindex="-1" aria-labelledby="markSheetdocModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="markSheetdocModal">SSC Marksheet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe src="http://localhost:8000/documents/<%= application.studentData.educationDetails.marksheet %>" width="100%" height="500px" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+  </div>
+
 <main class="main-content">
   <div class="position-relative iq-banner">
     <!-- Nav Header Component Start -->
@@ -101,8 +131,7 @@
               </div>
               <h5 class="text-center">
                 <strong>
-                  <%= application.studentData.personalDetails.firstName %> <%=
-                  application.studentData.personalDetails.lastName %>
+                  <%= application.studentData.username %>
                 </strong>
               </h5>
               <!-- <div class="form-group">
@@ -146,7 +175,9 @@
           </div>
           <div class="card-body">
             <div class="new-user-info">
-              <form>
+              <form action="/FIN/approveAppById/<%= application._id %>/<%= application.studentId %>" method="POST">
+                <h5 class="mb-3 text-primary">Personal Detail's</h5>
+                <hr />
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="validationCustom01" class="form-label"
@@ -169,9 +200,7 @@
                     />
                   </div>
                   <div class="form-group col-md-4">
-                    <label class="form-label" for="add1"
-                      >Last Name</label
-                    >
+                    <label class="form-label" for="add1">Last Name</label>
                     <input
                       type="text"
                       class="form-control"
@@ -179,135 +208,182 @@
                       value="<%= application.studentData.personalDetails.lastName %>"
                     />
                   </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="add2"
-                      >Street Address 2:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="add2"
-                      placeholder="Street Address 2"
-                    />
-                  </div>
-                  <div class="form-group col-md-12">
-                    <label class="form-label" for="cname">Company Name:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="cname"
-                      placeholder="Company Name"
-                    />
-                  </div>
-                  <div class="form-group col-sm-12">
-                    <label class="form-label">Country:</label>
-                    <select
-                      name="type"
-                      class="selectpicker form-control"
-                      data-style="py-0"
-                    >
-                      <option>Select Country</option>
-                      <option>Caneda</option>
-                      <option>Noida</option>
-                      <option>USA</option>
-                      <option>India</option>
-                      <option>Africa</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="mobno">Mobile Number:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="mobno"
-                      placeholder="Mobile Number"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="altconno"
-                      >Alternate Contact:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="altconno"
-                      placeholder="Alternate Contact"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="email">Email:</label>
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="add2">Email Address</label>
                     <input
                       type="email"
                       class="form-control"
-                      id="email"
-                      placeholder="Email"
+                      id="validate"
+                      value="<%= application.studentData.email %>"
                     />
                   </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="pno">Pin Code:</label>
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="cname">Mobile No</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.mobileNo %>"
+                    />
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label class="form-label">Guardian Mobile No</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.guardianMobileNo %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="mobno">Birth Date</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="pno"
-                      placeholder="Pin Code"
+                      id="validate"
+                      placeholder="<%= moment(application.studentData.personalDetails.birthDate).format('DD-MM-YYYY') %>"
                     />
                   </div>
-                  <div class="form-group col-md-12">
-                    <label class="form-label" for="city">Town/City:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="city"
-                      placeholder="Town/City"
-                    />
-                  </div>
-                </div>
-                <hr />
-                <h5 class="mb-3">Security</h5>
-                <div class="row">
-                  <div class="form-group col-md-12">
-                    <label class="form-label" for="uname">User Name:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="uname"
-                      placeholder="User Name"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="pass">Password:</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="pass"
-                      placeholder="Password"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="form-label" for="rpass"
-                      >Repeat Password:</label
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="altconno"
+                      >Age</label
                     >
                     <input
-                      type="password"
+                      type="text"
                       class="form-control"
-                      id="rpass"
-                      placeholder="Repeat Password "
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.age %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="email">Gender</label>
+                    <input
+                      type="text"
+                      class="form-control text-capitalize"
+                      id="validate"
+                      value="<%= application.studentData.personalDetails.gender %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="pno">Address</label>
+                    <textarea style="resize: none;" name="" class="form-control" id="validate"><%= application.studentData.personalDetails.address %></textarea>
+                  </div>
+                </div>
+                <h5 class="mb-3 text-primary">Education Detail's</h5>
+                <hr>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="uname">College</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.educationDetails.college %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="pass">Course</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.educationDetails.course %>"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="rpass">SSC Marks</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.educationDetails.totalMarks %> out of 500"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="rpass">Percentage</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validate"
+                      value="<%= application.studentData.educationDetails.percentage %>"
                     />
                   </div>
                 </div>
-                <div class="checkbox">
-                  <label class="form-label"
-                    ><input
-                      class="form-check-input me-2"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckChecked"
-                    />Enable Two-Factor-Authentication</label
-                  >
+                <h5 class="mb-3 text-primary">Income Detail's</h5>
+                <hr>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                      <label class="form-label" for="uname">Is Income Available?</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validate"
+                        value="<%= application.studentData.incomeDetails.isIncomeCertificateAvailable %>"
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="form-label" for="pass">Annual Income</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validate"
+                        value="<%= application.studentData.incomeDetails.annualIncome %>"
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="form-label" for="rpass">Income Certificate No</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validate"
+                        value="<%= application.studentData.incomeDetails.incomeCertificateNo %>"
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="form-label" for="rpass">Issued Date</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validate"
+                        placeholder="<%= moment(application.studentData.incomeDetails.issuedDate).format('DD-MM-YYYY') %>"
+                      />
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                  Add New User
-                </button>
+                <h5 class="mb-3 text-primary">Required Document's</h5>
+                <hr>
+                <div class="row">
+                    <div class="d-flex align-items-center gap-4">
+                        <div class="card shadow-sm" style="width: 12rem;">
+                            <div class="card-body text-center">
+                              <div class="mb-3">
+                                <span data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
+                                  <img src="/images/pdfImg.png" width="50%" height="50%" alt="Income Certificate">
+                                </span>
+                              </div>
+                              <p class="mb-2 text-primary">Income Certificate</p>
+                            </div>
+                          </div>
+                          <div class="card shadow-sm" style="width: 12rem;">
+                            <div class="card-body text-center">
+                              <div class="mb-3">
+                                <span data-bs-toggle="modal" data-bs-target="#markSheetdocModal" style="cursor: pointer;">
+                                  <img src="/images/pdfImg.png" width="50%" height="50%" alt="Marksheet">
+                                </span>
+                              </div>
+                              <p class="mb-2 text-primary">SSC Marksheet</p>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-end">
+                    <button type="submit" class="btn btn-success">
+                        Payment Done
+                    </button>
+                </div>
               </form>
             </div>
           </div>
