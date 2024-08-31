@@ -138,8 +138,10 @@ router.post("/logoutSAGAdmin", sagController.logoutSAGAdmin);
 
 // Atharva's Routes - { FIN Dashboard }
 router.get("/FIN/home", finController.home);
+router.get("/FIN/viewAllVerifiedApplications", finController.viewAllVerifiedApplications);
+router.get("/FIN/viewAllApprovedApplications", finController.viewAllApprovedApplications);
 router.get("/FIN/viewSingleVerifiedAppById/:scholarshipId/:studentId", finController.viewSingleVerifiedAppById);
-
+router.post("/FIN/approveAppById/:scholarshipId/:studentId", finController.approveAppById);
 
 
 
@@ -160,7 +162,7 @@ router.get("/FIN/viewSingleVerifiedAppById/:scholarshipId/:studentId", finContro
 // Student registration route
 router.post("/register", studentController.register);
 router.post("/isUserVerified", studentController.isUserVerified);
-router.post("/login", studentController.login);
+router.post("/loginStud", studentController.login);
 router.post(
   "/editProfile",
   upload.single("userImage"),

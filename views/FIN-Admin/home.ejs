@@ -353,7 +353,6 @@
                              <th>Scheme</th>
                              <th>Applied Date</th>
                              <th>Status</th>
-                             <th>Actions</th>
                          </tr>
                      </thead>
                      <tbody class="text-center">
@@ -364,15 +363,6 @@
                              <td><%= application.schemeName %></td>
                              <td><%= moment(application.appliedDate).format('DD-MM-YYYY') %></td>
                              <td class="text-success text-capitalize"><%= application.status %></td>
-                             <td class="d-flex gap-2">
-                                 <!-- HREF TO OPEN INDIVIDUAL EVENT PAGE -->
-                                 <a href="/SAG/viewSingleApprovedAppById/<%= application._id %>/<%= application.studentId %>">
-                                     <button type="button" class="btn btn-soft-primary">View</button>
-                                 </a>
-                                 <!-- <a href="/SAG/viewSinglePendingAppById/<%= application._id %>/<%= application.studentId %>">
-                                     <button type="button" class="btn btn-soft-danger">Delete</button>
-                                 </a> -->
-                             </td>
                          </tr>
                          <% }); %>
                      </tbody>

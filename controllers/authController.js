@@ -419,13 +419,11 @@ exports.renderVerificationPage = (req, res) => {
 // Atharva's Controller - {Flutter App}
 exports.register = async (req, res) => {
   try {
-    const { firstName, lastName, username, email, password } = req.body;
+    const { username, email, password } = req.body;
     const verificationCode = Math.floor(100000 + Math.random() * 900000);
     console.log(req.body);
 
     var studentData = new studentModel({
-      firstName: firstName,
-      lastName: lastName,
       username: username,
       email: email,
       token: verificationCode,

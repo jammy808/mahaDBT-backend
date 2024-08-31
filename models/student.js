@@ -14,7 +14,7 @@ const studentSchema = mongoose.Schema({
   },
   email: { 
     type: String, 
-    unique: true, 
+    // unique: true, 
   },
   token: Number,
   verified: Boolean,

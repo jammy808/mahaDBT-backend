@@ -1,18 +1,18 @@
 <% errors.forEach(function(message) { %>
-  <div class="alert alert-bottom alert-danger alert-dismissible fade show" role="alert">
+  <div class="alert alert-bottom alert-danger alert-dismissible fade show new" role="alert">
     <span> <%= message %></span>
 </div>
 <% }) %>
 
 <% success.forEach(function(message) { %>
-  <div class="alert alert-left alert-success alert-dismissible fade show mb-3" role="alert">
+  <div class="alert alert-left alert-success alert-dismissible fade show mb-3 new" role="alert">
     <span><%= message %></span>
 </div>
 <% }) %>
 
 <script>
   console.log("Hello js");
-  let alert = document.querySelector(".fade");
+  let alert = document.querySelector(".new");
   console.log(alert);
 
   setTimeout(() => {
